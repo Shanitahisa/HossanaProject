@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <div class="inn-body-section inn-booking">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+                    <div class="book-title text-center">
+                        <h2>Booking Submitted Successfully</h2>
+                        <p>Your booking and payment details were received. Our team will verify and contact you shortly.</p>
+                    </div>
+
+                    <div class="book-form inn-com-form" style="padding: 20px;">
+                        <p><strong>Booking ID:</strong> {{ booking.id }}</p>
+                        <p><strong>Guest Name:</strong> {{ booking.full_name }}</p>
+                        <p><strong>Room Type:</strong> {{ booking.room_type }}</p>
+                        <p><strong>Stay Dates:</strong> {{ booking.check_in }} to {{ booking.check_out }}</p>
+                        <p><strong>Amount:</strong> ${{ booking.total_amount }}</p>
+                        <p><strong>Payment Status:</strong> {{ booking.get_payment_status_display }}</p>
+                        {% if payment %}
+                            <p><strong>Reference:</strong> {{ payment.reference_code }}</p>
+                            <p><strong>Payment Method:</strong> {{ payment.get_payment_method_display }}</p>
+                        {% endif %}
+
+                        <div class="text-center" style="margin-top: 20px;">
+                            <a href="{% url 'resortIndex' %}" class="waves-effect waves-light btn-large">Back to Home</a>
+                            <a href="{% url 'booking' %}" class="waves-effect waves-light btn-large">Make Another Booking</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

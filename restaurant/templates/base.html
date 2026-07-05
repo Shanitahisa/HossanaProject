@@ -12,9 +12,10 @@
 	<link rel="shortcut icon" href="{% static 'images/fav.png' %}" type="image/x-icon">
 	<!-- GOOGLE FONT -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins%7CQuicksand:500,700" rel="stylesheet">
+	<!-- bootstrap -->
+	 
 	<!-- FONTAWESOME ICONS -->
 	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 	<!-- ALL CSS FILES -->
 	<link href="{% static 'css/materialize.css' %}" rel="stylesheet">
 	<link href="{% static 'css/style.css' %}" rel="stylesheet">
@@ -54,15 +55,15 @@
 						<ul>
 							<li><a class='dropdown-button' href='#' data-activates='dropdown1'> My Account <i class="fa fa-angle-down"></i></a>
 							</li>
-							<li><a href="hotel-details.html">Our Hotels</a>
+							<li><a href="{% url 'index' %}">Our Franchise</a>
 							</li>
-							<li><a href="about-us.html">About Us</a>
+							<!-- <li><a href="#">About Us</a>
+							</li> -->
+							<li><a href="#">Contact Us</a>
 							</li>
-							<li><a href="contact-us.html">Contact Us</a>
-							</li>
-							<li><a class='dropdown-button' href='#' data-activates='dropdown2'>Language <i class="fa fa-angle-down"></i></a>
-							</li>
-							<li><a href="#">Toll Free No: 1800 102 7275</a>
+							<!-- <li><a class='dropdown-button' href='#' data-activates='dropdown2'>Language <i class="fa fa-angle-down"></i></a>
+							</li> -->
+							<li><a href="#">Contact No: +256 772 496 781</a>
 							</li>
 						</ul>
 					</div>
@@ -86,15 +87,15 @@
 						<ul id='drop-room' class='dropdown-content drop-con-man'>
 							<li><a href="all-rooms.html">All Suite Rooms</a>
 							</li>
-							<li><a href="room-details.html">Room Details</a>
+							<!-- <li><a href="room-details.html">Room Details</a>
 							</li>
 							<li><a href="room-details-block.html">Room Details Block</a>
 							</li>
 							<li><a href="room-details-1.html">Room Parallax</a>
-							</li>
+							</li> -->
 						</ul>
 						<!-- PAGES Dropdown Structure -->
-						<div id='drop-page' class='dropdown-content drop-con-man drop-full'>
+						<!-- <div id='drop-page' class='dropdown-content drop-con-man drop-full'>
 							<div class="mm-1">
 								<h4>Pages</h4>
 								<ul>
@@ -113,7 +114,7 @@
 									<li><a href="aminities1.html">Aminities - 1</a>
 									</li>
 								</ul>
-							</div>
+							</div> -->
 							
 							<!-- <div class="mm-1">
 								<h4>Pages</h4>
@@ -203,15 +204,17 @@
 							</li>
 							<li><a href="#" class='dropdown-button' data-activates='drop-room'>Rooms <i class="fa fa-angle-down"></i></a>
 							</li>
-							<li><a href="services.html">Services</a>
+							<li><a href="#">Services</a>
 							</li>
-							<li><a href="menu.html">Menu</a>
+							<li><a href="#">Menu</a>
 							</li>
-							<li><a href="events.html">Events</a>
+							<li><a href="#">Events</a>
 							</li>
-							<li><a href="aminities1.html">Amenities</a>
+							<li><a href="#">Amenities</a>
 							</li>
-							<li><a href="#" class='dropdown-button' data-activates='drop-page'>Pages <i class="fa fa-angle-down"></i></a>
+							<li><a href="{% url 'staff_dashboard' %}">Staff Dashboard</a>
+							</li>
+							<li><a href="#" class='dropdown-button' data-activates='drop-page'>More <i class="fa fa-angle-down"></i></a>
 							</li>
 						</ul>
 					</div>
@@ -241,14 +244,13 @@
 								</ul>
 							</div>
 							<div class="foot-com foot-2">
-								<h5>Phone: (+404) 142 21 23 78</h5> </div>
+								<h5>Phone: +256 772 496 781</h5> </div>
 							<div class="foot-com foot-3">
-								<!--<a class="waves-effect waves-light" href="#">online room booking</a>--><a class="waves-effect waves-light" href="booking.html">room reservation</a> </div>
+								<!--<a class="waves-effect waves-light" href="#">online room booking</a>--><a class="waves-effect waves-light" href="{% url 'booking' %}">room reservation</a> </div>
 							<div class="foot-com foot-4">
-								<a href="#"><img src="{% static 'images/card.png' %}" alt="" />
-								</a>
+								
 							</div>
-						</div>
+						</div> 
 					</div>
 				</div>
 			</div>
@@ -264,55 +266,52 @@
 							<div class="container">
 								<div class="row">
 									<div class="col-sm-12 col-md-3 foot-logo"> <img src="{% static 'images/resortlogo.png' %}" alt="logo" width="100px">
-										<p class="hasimg">Hotels worldwide incl. Infos, Ratings and Photos. Make your Hotel Reservation cheap.</p>
-										<p class="hasimg">The top-rated hotel booking services.</p>
+										<p class="hasimg">Nestled on the serene Bussi Island, our resort offers a unique retreat where luxury meets nature. Wake up to stunning Lake Victoria views, unwind in peaceful surroundings, and enjoy exceptional hospitality just a short boat ride from Entebbe.</p>
+										<p class="hasimg">The top-rated hotel in Entebbe.</p>
 									</div>
 									<div class="col-sm-12 col-md-3">
-										<h4>Support &amp; Help</h4>
+										<h4>Quick links</h4>
 										<ul class="two-columns">
-											<li><a href="dashboard.html">Dashboard</a>
+											<li><a href="{% url 'index' %}">Hosanna Frinchses</a>
 											</li>
-											<li><a href="db-activity.html">DB Activity</a>
+											<li><a href="#">our menu</a>
 											</li>
-											<li><a href="booking.html">Booking</a>
+											<li><a href="#">Booking</a>
 											</li>
-											<li><a href="contact-us.html">Contact Us</a>
+											<li><a href="#">Contact Us</a>
 											</li>
-											<li><a href="about-us.html">About Us</a>
+											<li><a href="#">About Us</a>
 											</li>
-											<li><a href="aminities.html">Aminities</a>
+											<li><a href="#">Aminities</a>
 											</li>
-											<li><a href="blog.html">Blog</a>
+											<li><a href="#">Blog</a>
 											</li>
-											<li><a href="menu1.html">Food Menu</a>
+											<li><a href="#">Gallery</a>
 											</li>
 										</ul>
 									</div>
 									<div class="col-sm-12 col-md-3">
-										<h4>Cities Covered</h4>
+										<h4>Packages</h4>
 										<ul class="two-columns">
-											<li><a href="#!">Sydney</a>
+											<li><a href="#!">Family vacations</a>
 											</li>
-											<li><a href="#!">Basel</a>
+											<li><a href="#!">Uganda tourism itenerary</a>
 											</li>
-											<li><a href="#!">Copenhagen</a>
+											<li><a href="#!">Uganda tour guides</a>
 											</li>
-											<li><a href="#!">Frankfurt</a>
+											<li><a href="#!">Airpot pickups and transfers</a>
 											</li>
-											<li><a href="#!">Vancouver</a>
+											<li><a href="#!">Boat rides</a>
 											</li>
-											<li><a href="#!">Auckland</a>
+											<li><a href="#!">Bird watching</a>
 											</li>
-											<li><a href="#!">Vienna</a>
-											</li>
-											<li><a href="#!">Los Angeles</a>
-											</li>
+											
 										</ul>
 									</div>
 									<div class="col-sm-12 col-md-3">
 										<h4>Address</h4>
-										<p>28800 Orchard Lake Road, Suite 180 Farmington Hills, U.S.A. Landmark : Next To Airport</p>
-										<p> <span class="foot-phone">Phone: </span> <span class="foot-phone">+01 1245 2541</span> </p>
+										<p>Bussi Island, Entebbe, Uganda</p>
+										<p> <span class="foot-phone">Phone: </span> <span class="foot-phone">+256 772 496 781</span> </p>
 									</div>
 								</div>
 							</div>
@@ -322,10 +321,10 @@
 								<div class="row">
 									<div class="col-sm-12 col-md-3">
 										<h4>Payment Options</h4>
-										<p class="hasimg"> <img src="{% static 'images/payment.png' %}" alt="payment"> </p>
+										<p class="hasimg"> <i class="fa fa-credit-card" aria-hidden="true"></i> <i class="fa fa-cc-mastercard" aria-hidden="true"></i> <i class="fa fa-paypal" aria-hidden="true"></i> </p>
 									</div>
 									<div class="col-sm-12 col-md-4">
-										<h4>Subscribe Now</h4>
+										<h4>Subscribe For our newsletterNow</h4>
 										<form>
 											<ul class="foot-subsc">
 												<li>
@@ -337,7 +336,7 @@
 									</div>
 									<div class="col-sm-12 col-md-5 foot-social">
 										<h4>Follow with us</h4>
-										<p>Join the thousands of other There are many variations of passages of Lorem Ipsum available</p>
+										<p>Follow us on social media for exclusive discount updates</p>
 										<ul>
 											<li><a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
 											<li><a href="#!"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
@@ -360,7 +359,7 @@
 	</footer>
 	<section class="copy">
 		<div class="container">
-			<p>copyrights © 2017 RN53Themes.net. &nbsp;&nbsp;All rights reserved. </p>
+			<p>copyrights © 2026 Hosanna (u) LTD. &nbsp;&nbsp;All rights reserved. </p>
 		</div>
 	</section>
 	<section>

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <style>
+        .payment-wrap .input-field {
+            margin-top: 0;
+        }
+        .payment-wrap .input-field label {
+            position: static;
+            display: block;
+            padding: 0;
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 13px;
+            transform: none;
+        }
+        .payment-wrap .input-field input,
+        .payment-wrap .input-field select,
+        .payment-wrap .input-field textarea {
+            margin-bottom: 14px;
+        }
+        .payment-wrap .field-errors {
+            color: #c62828;
+            font-size: 12px;
+            margin-top: -8px;
+            margin-bottom: 10px;
+        }
+        .booking-summary {
+            background: #f7f9fc;
+            padding: 16px;
+            border-left: 4px solid #2b6cb0;
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <div class="inn-body-section inn-booking">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 payment-wrap">
+                    <div class="book-title text-center">
+                        <h2>Payment Details</h2>
+                        <p>Submit payment details to complete your booking request.</p>
+                    </div>
+
+                    <div class="booking-summary">
+                        <h5>Booking #{{ booking.id }}</h5>
+                        <p><strong>Guest:</strong> {{ booking.full_name }}</p>
+                        <p><strong>Room:</strong> {{ booking.room_type }}</p>
+                        <p><strong>Dates:</strong> {{ booking.check_in }} to {{ booking.check_out }}</p>
+                        <p><strong>Total Amount:</strong> ${{ booking.total_amount }}</p>
+                    </div>
+
+                    <div class="book-form inn-com-form">
+                        <form class="col s12" method="post" novalidate>
+                            {% csrf_token %}
+
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <label for="id_payment_method">Payment Method</label>
+                                    {{ form.payment_method }}
+                                    {% for error in form.payment_method.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+                                </div>
+                                <div class="input-field col s6">
+                                    <label for="id_payer_name">Payer Name</label>
+                                    {{ form.payer_name }}
+                                    {% for error in form.payer_name.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <label for="id_amount">Amount</label>
+                                    {{ form.amount }}
+                                    {% for error in form.amount.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+                                </div>
+                                <div class="input-field col s6">
+                                    <label for="id_reference_code">Transaction Reference</label>
+                                    {{ form.reference_code }}
+                                    {% for error in form.reference_code.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label for="id_notes">Payment Notes</label>
+                                    {{ form.notes }}
+                                    {% for error in form.notes.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12 text-center">
+                                    <input type="submit" value="Submit Payment" class="form-btn">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
