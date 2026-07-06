@@ -5,10 +5,11 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 
-from .forms import BookingForm, PaymentForm
-from .models import Booking, Payment, User
+from .forms import BanquetBookingForm, BookingForm, PaymentForm
+from .models import BanquetBooking, Booking, Payment, User
 
 # Create your views here.
 
@@ -73,6 +74,54 @@ def booking(request):
     return render(request, "booking.html", {"form": form})
 
 
+def banquet_booking(request):
+    if request.method == "POST":
+        form = BanquetBookingForm(request.POST)
+        if form.is_valid():
+            banquet_instance = form.save(commit=False)
+            user, _ = User.objects.get_or_create(
+                email=banquet_instance.email,
+                defaults={
+                    "full_name": banquet_instance.full_name,
+                    "phone": banquet_instance.phone,
+                    "mobile": banquet_instance.mobile,
+                    "city": banquet_instance.city,
+                    "country": banquet_instance.country,
+                },
+            )
+            user.full_name = banquet_instance.full_name
+            user.phone = banquet_instance.phone
+            user.mobile = banquet_instance.mobile
+            user.city = banquet_instance.city
+            user.country = banquet_instance.country
+            user.save()
+
+            banquet_instance.user = user
+            banquet_instance.save()
+            messages.success(request, "Banquet booking request submitted. Our team will contact you shortly.")
+            return redirect("banquet_booking_success", booking_id=banquet_instance.id)
+    else:
+        initial = {}
+        banquet_space = request.GET.get("space")
+        valid_spaces = {space for space, _ in BanquetBooking.SPACE_CHOICES}
+        if banquet_space in valid_spaces:
+            initial["banquet_space"] = banquet_space
+        form = BanquetBookingForm(initial=initial)
+
+    return render(request, "banquet-booking.html", {"form": form})
+
+
+def banquet_booking_success(request, booking_id):
+    banquet_booking_instance = get_object_or_404(BanquetBooking, id=booking_id)
+    return render(
+        request,
+        "banquet-booking-success.html",
+        {
+            "booking": banquet_booking_instance,
+        },
+    )
+
+
 def payment(request, booking_id):
     booking_instance = get_object_or_404(Booking, id=booking_id)
 
@@ -116,6 +165,7 @@ def booking_success(request, booking_id):
     )
 
 
+@never_cache
 def staff_login(request):
     if request.user.is_authenticated and request.user.is_staff:
         return redirect("staff_dashboard")
@@ -135,17 +185,24 @@ def staff_login(request):
 
 
 @require_POST
+@never_cache
 def staff_logout(request):
     logout(request)
     messages.success(request, "You have been signed out.")
     return redirect("staff_login")
 
 
+@never_cache
 @staff_required
 def staff_dashboard(request):
     bookings = Booking.objects.select_related("user").prefetch_related("payments")
+    banquet_bookings = BanquetBooking.objects.select_related("user")
     total_bookings = bookings.count()
+    total_banquet_bookings = banquet_bookings.count()
     pending_bookings = bookings.filter(booking_status=Booking.BOOKING_STATUS_PENDING).count()
+    pending_banquet_bookings = banquet_bookings.filter(
+        booking_status=BanquetBooking.BOOKING_STATUS_PENDING
+    ).count()
     confirmed_bookings = bookings.filter(booking_status=Booking.BOOKING_STATUS_CONFIRMED).count()
     pending_payments = bookings.filter(payment_status=Booking.PAYMENT_STATUS_PENDING).count()
 
@@ -154,8 +211,11 @@ def staff_dashboard(request):
         "staff-dashboard.html",
         {
             "bookings": bookings,
+            "banquet_bookings": banquet_bookings,
             "total_bookings": total_bookings,
+            "total_banquet_bookings": total_banquet_bookings,
             "pending_bookings": pending_bookings,
+            "pending_banquet_bookings": pending_banquet_bookings,
             "confirmed_bookings": confirmed_bookings,
             "pending_payments": pending_payments,
         },
@@ -176,4 +236,15 @@ def confirm_booking(request, booking_id):
     booking_instance.save(update_fields=["booking_status", "payment_status", "updated_at"])
 
     messages.success(request, f"Booking #{booking_instance.id} has been confirmed.")
+    return redirect("staff_dashboard")
+
+
+@staff_required
+@require_POST
+def confirm_banquet_booking(request, booking_id):
+    banquet_booking_instance = get_object_or_404(BanquetBooking, id=booking_id)
+    banquet_booking_instance.booking_status = BanquetBooking.BOOKING_STATUS_CONFIRMED
+    banquet_booking_instance.save(update_fields=["booking_status", "updated_at"])
+
+    messages.success(request, f"Banquet booking #{banquet_booking_instance.id} has been confirmed.")
     return redirect("staff_dashboard")

@@ -85,6 +85,65 @@ class Booking(models.Model):
 		return f"{self.full_name} - {self.room_type} ({self.check_in})"
 
 
+class BanquetBooking(models.Model):
+	BOOKING_STATUS_PENDING = "pending"
+	BOOKING_STATUS_CONFIRMED = "confirmed"
+	BOOKING_STATUS_CANCELLED = "cancelled"
+
+	BOOKING_STATUS_CHOICES = [
+		(BOOKING_STATUS_PENDING, "Pending"),
+		(BOOKING_STATUS_CONFIRMED, "Confirmed"),
+		(BOOKING_STATUS_CANCELLED, "Cancelled"),
+	]
+
+	SPACE_GRAND_BALLROOM = "Grand Ball Rooms"
+	SPACE_BUSINESS_MEETINGS = "Business Meetings"
+	SPACE_OUTDOOR_EVENT = "Outdoor Event"
+	SPACE_SOCIAL_EVENT = "Social Event"
+
+	SPACE_CHOICES = [
+		(SPACE_GRAND_BALLROOM, "Grand Ball Rooms"),
+		(SPACE_BUSINESS_MEETINGS, "Business Meetings"),
+		(SPACE_OUTDOOR_EVENT, "Outdoor Event"),
+		(SPACE_SOCIAL_EVENT, "Social Event"),
+	]
+
+	user = models.ForeignKey(
+		User,
+		on_delete=models.SET_NULL,
+		related_name="banquet_bookings",
+		blank=True,
+		null=True,
+	)
+	full_name = models.CharField(max_length=120)
+	email = models.EmailField()
+	phone = models.CharField(max_length=30)
+	mobile = models.CharField(max_length=30, blank=True)
+	city = models.CharField(max_length=100)
+	country = models.CharField(max_length=100)
+
+	banquet_space = models.CharField(max_length=80, choices=SPACE_CHOICES)
+	event_date = models.DateField()
+	event_time = models.TimeField()
+	guest_count = models.PositiveIntegerField(default=1)
+	event_type = models.CharField(max_length=100)
+	special_requests = models.TextField(blank=True)
+	booking_status = models.CharField(
+		max_length=20,
+		choices=BOOKING_STATUS_CHOICES,
+		default=BOOKING_STATUS_PENDING,
+	)
+
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	class Meta:
+		ordering = ["-created_at"]
+
+	def __str__(self):
+		return f"{self.full_name} - {self.banquet_space} ({self.event_date})"
+
+
 class Payment(models.Model):
 	METHOD_BANK_TRANSFER = "bank_transfer"
 	METHOD_MOBILE_MONEY = "mobile_money"

@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section>
+	<style>
+		.banquet-booking-top-section {
+			background-image: url("{% static 'images/ballroom.jpg' %}");
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+		.banquet-form-wrap .input-field {
+			margin-top: 0;
+		}
+		.banquet-form-wrap .input-field label {
+			position: static;
+			display: block;
+			padding: 0;
+			margin-bottom: 6px;
+			color: #333;
+			font-size: 13px;
+			transform: none;
+		}
+		.banquet-form-wrap .input-field input,
+		.banquet-form-wrap .input-field textarea,
+		.banquet-form-wrap .input-field select {
+			margin-bottom: 14px;
+		}
+		.banquet-form-wrap .field-errors {
+			color: #c62828;
+			font-size: 12px;
+			margin-top: -8px;
+			margin-bottom: 10px;
+		}
+		.banquet-form-wrap .top-errors {
+			background: #fdecea;
+			color: #8a1c1c;
+			padding: 10px 14px;
+			margin-bottom: 16px;
+			border-left: 4px solid #d32f2f;
+		}
+	</style>
+
+	<div class="inn-body-section inn-booking banquet-booking-top-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+					<div class="book-title text-center">
+						<h2>Banquet Space Booking</h2>
+						<p>Tell us about your event and our team will contact you to confirm the perfect space.</p>
+					</div>
+					<div class="book-form inn-com-form banquet-form-wrap">
+						<form class="col s12" method="post" novalidate>
+							{% csrf_token %}
+
+							{% if form.non_field_errors %}
+								<div class="top-errors">
+									{% for error in form.non_field_errors %}
+										<div>{{ error }}</div>
+									{% endfor %}
+								</div>
+							{% endif %}
+
+							<div class="row">
+								<div class="input-field col s6">
+									<label for="id_full_name">Full Name</label>
+									{{ form.full_name }}
+									{% for error in form.full_name.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+								<div class="input-field col s6">
+									<label for="id_email">Email</label>
+									{{ form.email }}
+									{% for error in form.email.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="input-field col s6">
+									<label for="id_phone">Phone</label>
+									{{ form.phone }}
+									{% for error in form.phone.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+								<div class="input-field col s6">
+									<label for="id_mobile">Mobile</label>
+									{{ form.mobile }}
+									{% for error in form.mobile.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="input-field col s6">
+									<label for="id_city">City</label>
+									{{ form.city }}
+									{% for error in form.city.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+								<div class="input-field col s6">
+									<label for="id_country">Country</label>
+									{{ form.country }}
+									{% for error in form.country.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="input-field col s6">
+									<label for="id_banquet_space">Banquet Space</label>
+									{{ form.banquet_space }}
+									{% for error in form.banquet_space.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+								<div class="input-field col s6">
+									<label for="id_event_type">Event Type</label>
+									{{ form.event_type }}
+									{% for error in form.event_type.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="input-field col s4">
+									<label for="id_event_date">Event Date</label>
+									{{ form.event_date }}
+									{% for error in form.event_date.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+								<div class="input-field col s4">
+									<label for="id_event_time">Event Time</label>
+									{{ form.event_time }}
+									{% for error in form.event_time.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+								<div class="input-field col s4">
+									<label for="id_guest_count">Expected Guests</label>
+									{{ form.guest_count }}
+									{% for error in form.guest_count.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="input-field col s12">
+									<label for="id_special_requests">Special Requests</label>
+									{{ form.special_requests }}
+									{% for error in form.special_requests.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="input-field col s12 text-center">
+									<input type="submit" value="Submit Banquet Booking" class="form-btn">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

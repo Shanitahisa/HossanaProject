@@ -9,31 +9,34 @@
 				background-position: center;
 				background-repeat: no-repeat;
 			}
-			.restaurant-booking-form .input-field {
-				margin-top: 0;
+			.restaurant-top-section .container {
+				max-width: 100% !important;
+				width: 100% !important;
 			}
-			.restaurant-booking-form .input-field label {
-				position: static;
-				display: block;
-				padding: 0;
-				margin-bottom: 6px;
-				color: #333;
-				font-size: 13px;
-				transform: none;
+			.resort-intro {
+				max-width: 100%;
+				margin: 0 auto;
+				text-align: center;
 			}
-			.restaurant-booking-form .input-field input,
-			.restaurant-booking-form .select-wrapper input.select-dropdown {
-				margin-bottom: 14px;
+			.resort-intro p {
+				width: 100%;
+				margin: 0 auto;
 			}
-			.restaurant-booking-form select.browser-default {
-			display: block;
-			width: 100%;
-			height: 40px;
-			padding: 6px 10px;
-			margin-bottom: 14px;
-			border: 1px solid #d9d9d9;
-			border-radius: 2px;
-			background-color: #fff;
+			.resort-intro .book-room-button {
+				background: #0f5f59;
+				border-radius: 4px;
+				color: #fff;
+				display: inline-block;
+				font-weight: 700;
+				margin-top: 18px;
+				padding: 12px 24px;
+				text-transform: uppercase;
+			}
+			.resort-intro .book-room-button:hover,
+			.resort-intro .book-room-button:focus {
+				background: #0a4641;
+				color: #fff;
+				text-decoration: none;
 			}
 			.room-card-item {
 				margin-bottom: 24px;
@@ -67,95 +70,23 @@
 			}
 		</style>
 
-		<!--Check Availability SECTION-->
+		<!--RESORT INTRO SECTION-->
 		<div class="inn-body-section inn-booking restaurant-top-section">
 			<div class="container">
 				<div class="row">
 					<!--TYPOGRAPHY SECTION-->
-					<div class="col-md-6">
-						<div class="book-title">
-							<h2>Check Availability</h2>
-							<p>Surrounded by the natural beauty of Lake Victoria, our resort is your gateway to unforgettable island experiences. Enjoy peaceful accommodation, breathtaking sunsets, birdwatching, nature walks, water activities, and authentic Ugandan hospitality, all within easy reach of Entebbe.</p>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="book-form inn-com-form">
-							<form class="col s12 restaurant-booking-form">
-								<div class="row">
-									<div class="input-field col s6">
-										<label for="full_name">Full Name</label>
-										<input type="text" id="full_name" class="validate">
-									</div>
-									<div class="input-field col s6">
-										<label for="email">Email</label>
-										<input type="email" id="email" class="validate">
-									</div>
-								</div>
-								<div class="row">
-									<div class="input-field col s6">
-										<label for="phone">Phone</label>
-										<input type="text" id="phone" class="validate">
-									</div>
-									<div class="input-field col s6">
-										<label for="mobile">Mobile</label>
-										<input type="text" id="mobile" class="validate">
-									</div>
-								</div>
-								<div class="row">
-									<div class="input-field col s6">
-										<label for="city">City</label>
-										<input type="text" id="city" class="validate">
-									</div>
-									<div class="input-field col s6">
-										<label for="country">Country</label>
-										<input type="text" id="country" class="validate">
-									</div>
-								</div>
-								<div class="row">
-									<div class="input-field col s6">
-										<label for="adults">Adults</label>
-										<select id="adults" class="browser-default">
-											<option value="" disabled selected>No of adults</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-										</select>
-									</div>
-									<div class="input-field col s6">
-										<label for="children">Children</label>
-										<select id="children" class="browser-default">
-											<option value="" disabled selected>No of children</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-										</select>
-									</div>
-								</div>
-								<div class="row">
-									<div class="input-field col s6">
-										<label for="from">Check In</label>
-										<input type="date" id="from" name="from" placeholder="mm/dd/yyyy">
-									</div>
-									<div class="input-field col s6">
-										<label for="to">Check Out</label>
-										<input type="date" id="to" name="to" placeholder="mm/dd/yyyy">
-									</div>
-								</div>
-								
-								<div class="row">
-									<div class="input-field col s12">
-										<input type="submit" value="submit" class="form-btn"> </div>
-								</div>
-							</form>
+					<div class="col-md-12">
+						<div class="book-title resort-intro">
+							<h2>Welcome to Hosanna Resort</h2>
+							<p>Set beside the calm beauty of Lake Victoria, Hosanna Resort is a peaceful island escape made for rest, celebration, and discovery. Wake up to fresh air, enjoy warm Ugandan hospitality, explore nature, and end the day with golden sunsets over the water.</p>
+							<a href="{% url 'booking' %}" class="book-room-button">Book a Room</a>
 						</div>
 					</div>
 					<!--END TYPOGRAPHY SECTION-->
 				</div>
 			</div>
 		</div>
-		<!--End Check Availability SECTION-->
+		<!--End Resort Intro SECTION-->
 		<!--HOTEL ROOMS SECTION-->
 		<div class="hom1 hom-com pad-bot-40">
 			<div class="container">
@@ -295,7 +226,7 @@
 						<div class="col-md-3 n2-event">
 							<!--event IMAGE-->
 							<div class="n21-event hovereffect"> <img src="{% static 'images/ballroom.jpg' %}" alt="">
-								<div class="overlay"> <a href="booking.html"><span class="ev-book">Book Now</span></a> </div>
+								<div class="overlay"> <a href="{% url 'banquet_booking' %}?space=Grand%20Ball%20Rooms"><span class="ev-book">Book Now</span></a> </div>
 							</div>
 							<!--event DETAILS-->
 							<div class="n22-event"> <a href="#!"><h4>Grand Ball Rooms</h4></a> <span class="event-date">Capacity: 300</span> <span class="event-by"> </span>
@@ -307,7 +238,7 @@
 						<div class="col-md-3 n2-event">
 							<!--event IMAGE-->
 							<div class="n21-event hovereffect"> <img src="{% static 'images/conference.jpg' %}" alt="">
-								<div class="overlay"> <a href="booking.html"><span class="ev-book">Book Now</span></a> </div>
+								<div class="overlay"> <a href="{% url 'banquet_booking' %}?space=Business%20Meetings"><span class="ev-book">Book Now</span></a> </div>
 							</div>
 							<!--event DETAILS-->
 							<div class="n22-event"> <a href="#!"><h4>Business Meetings</h4></a> <span class="event-date">Capacity: 150</span> <span class="event-by"></span>
@@ -318,7 +249,7 @@
 						<div class="col-md-3 n2-event">
 							<!--event IMAGE-->
 							<div class="n21-event hovereffect"> <img src="{% static 'images/Outdoor.jpg' %}" alt="">
-								<div class="overlay"> <a href="booking.html"><span class="ev-book">Book Now</span></a> </div>
+								<div class="overlay"> <a href="{% url 'banquet_booking' %}?space=Outdoor%20Event"><span class="ev-book">Book Now</span></a> </div>
 							</div>
 							<!--event DETAILS-->
 							<div class="n22-event"> <a href="#!"><h4>Outdoor Event</h4></a> <span class="event-date">Capacity: unlimited</span> 
@@ -329,7 +260,7 @@
 						<div class="col-md-3 n2-event">
 							<!--event IMAGE-->
 							<div class="n21-event hovereffect"> <img src="{% static 'images/socila1.jpg' %}" alt="">
-								<div class="overlay"> <a href="booking.html"><span class="ev-book">Book Now</span></a> </div>
+								<div class="overlay"> <a href="{% url 'banquet_booking' %}?space=Social%20Event"><span class="ev-book">Book Now</span></a> </div>
 							</div>
 							<!--event DETAILS-->
 							<div class="n22-event"> <a href="#!"><h4>Social Event</h4></a> <span class="event-date">Capacity: Unlimited</span> <span class="event-by"></span>

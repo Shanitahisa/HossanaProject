@@ -4,7 +4,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-from .models import Booking, Payment
+from .models import BanquetBooking, Booking, Payment
 
 
 class BookingForm(forms.ModelForm):
@@ -71,6 +71,52 @@ class BookingForm(forms.ModelForm):
 
         if children is not None and children < 0:
             self.add_error("children", "Children cannot be negative.")
+
+        return cleaned_data
+
+
+class BanquetBookingForm(forms.ModelForm):
+    class Meta:
+        model = BanquetBooking
+        fields = [
+            "full_name",
+            "email",
+            "phone",
+            "mobile",
+            "city",
+            "country",
+            "banquet_space",
+            "event_type",
+            "event_date",
+            "event_time",
+            "guest_count",
+            "special_requests",
+        ]
+        widgets = {
+            "full_name": forms.TextInput(attrs={"class": "validate"}),
+            "email": forms.EmailInput(attrs={"class": "validate"}),
+            "phone": forms.TextInput(attrs={"class": "validate"}),
+            "mobile": forms.TextInput(attrs={"class": "validate"}),
+            "city": forms.TextInput(attrs={"class": "validate"}),
+            "country": forms.TextInput(attrs={"class": "validate"}),
+            "banquet_space": forms.Select(attrs={"class": "browser-default"}),
+            "event_type": forms.TextInput(attrs={"class": "validate", "placeholder": "Wedding, conference, party..."}),
+            "event_date": forms.DateInput(attrs={"type": "date"}),
+            "event_time": forms.TimeInput(attrs={"type": "time"}),
+            "guest_count": forms.NumberInput(attrs={"min": 1, "class": "validate"}),
+            "special_requests": forms.Textarea(attrs={"class": "materialize-textarea", "rows": 4}),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        event_date = cleaned_data.get("event_date")
+        guest_count = cleaned_data.get("guest_count")
+
+        if event_date and event_date < timezone.localdate():
+            self.add_error("event_date", "Event date cannot be in the past.")
+
+        if guest_count is not None and guest_count < 1:
+            self.add_error("guest_count", "At least one guest is required.")
 
         return cleaned_data
 

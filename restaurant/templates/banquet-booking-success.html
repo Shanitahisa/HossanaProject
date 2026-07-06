@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <div class="inn-body-section inn-booking">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+                    <div class="book-title text-center">
+                        <h2>Banquet Booking Submitted</h2>
+                        <p>Your event request was received. Our team will review it and contact you shortly.</p>
+                    </div>
+
+                    <div class="book-form inn-com-form" style="padding: 20px;">
+                        <p><strong>Booking ID:</strong> {{ booking.id }}</p>
+                        <p><strong>Guest Name:</strong> {{ booking.full_name }}</p>
+                        <p><strong>Banquet Space:</strong> {{ booking.banquet_space }}</p>
+                        <p><strong>Event Type:</strong> {{ booking.event_type }}</p>
+                        <p><strong>Event Date:</strong> {{ booking.event_date }} at {{ booking.event_time }}</p>
+                        <p><strong>Expected Guests:</strong> {{ booking.guest_count }}</p>
+                        <p><strong>Status:</strong> {{ booking.get_booking_status_display }}</p>
+
+                        <div class="text-center" style="margin-top: 20px;">
+                            <a href="{% url 'resortIndex' %}" class="waves-effect waves-light btn-large">Back to Home</a>
+                            <a href="{% url 'banquet_booking' %}" class="waves-effect waves-light btn-large">Book Another Event</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
